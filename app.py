@@ -10,7 +10,7 @@ app = Flask(__name__)
 # Company Contact Details
 company_contact = {
     "email": "ycusgroup@gmail.com",
-    "phone": "+91-8828076093",
+    "phone": "+91-8369025837",
     "agent_response_time": "Our agents typically respond within 10 minutes during business hours."
 }
 
