@@ -238,173 +238,177 @@ def home():
 def chat_ui():
     return """
     <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Chatbot</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        #chat-container {
-            width: 100%;
-            max-width: 600px;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #chatbox {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background: #f9f9f9;
-        }
-
-        .message {
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .message.bot {
-            justify-content: flex-start;
-        }
-
-        .message.user {
-            justify-content: flex-end;
-        }
-
-        .message-content {
-            max-width: 70%;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-size: 14px;
-            line-height: 1.5;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .message.bot .message-content {
-            background: #e0e0e0;
-            color: #333;
-            border-radius: 10px 10px 10px 0;
-        }
-
-        .message.user .message-content {
-            background: #0078d7;
-            color: #fff;
-            border-radius: 10px 10px 0 10px;
-        }
-
-        #input-container {
-            display: flex;
-            padding: 10px;
-            background: #fff;
-            border-top: 1px solid #ddd;
-        }
-
-        #message {
-            flex: 1;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        #send {
-            background: #0078d7;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            margin-left: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        #send:hover {
-            background: #005bb5;
-        }
-
-        #chatbox::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        #chatbox::-webkit-scrollbar-thumb {
-            background: #cccccc;
-            border-radius: 4px;
-        }
-
-        #chatbox::-webkit-scrollbar-thumb:hover {
-            background: #999999;
-        }
-    </style>
-    <script>
-        async function sendMessage() {
-            const messageInput = document.getElementById("message");
-            const chatbox = document.getElementById("chatbox");
-            const userMessage = messageInput.value.trim();
-
-            if (!userMessage) return;
-
-            appendMessage("user", userMessage);
-            messageInput.value = "";
-
-            appendMessage("bot", "Bot is typing...");
-            const botTypingElement = chatbox.lastChild;
-
-            try {
-                const response = await fetch("/chat", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: userMessage })
-                });
-                const data = await response.json();
-                botTypingElement.remove();
-                appendMessage("bot", data.response);
-            } catch (error) {
-                console.error("Error fetching bot response:", error);
-                botTypingElement.remove();
-                appendMessage("bot", "Sorry, something went wrong. Please try again later.");
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Interactive Chatbot</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f4f4f9;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                flex-direction: column;
             }
-        }
 
-        function appendMessage(sender, text) {
-            const chatbox = document.getElementById("chatbox");
-            const messageElement = document.createElement("div");
-            messageElement.className = "message " + sender;  // Fixed class name assignment
-            messageElement.innerHTML = '<div class="message-content">' + text + '</div>';
-            chatbox.appendChild(messageElement);
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
-        
-</script>
-</head>
-<body>
-    <div id="chat-container">
-        <div id="chatbox"></div>
-        <div id="input-container">
-            <input type="text" id="message" placeholder="Type your message here..." onkeypress="if(event.key === 'Enter') sendMessage()" />
-            <button id="send" onclick="sendMessage()">Send</button>
+            #contact-info {
+                text-align: center;
+                background: #0078d7;
+                color: white;
+                padding: 15px;
+                width: 100%;
+                max-width: 600px;
+                border-radius: 10px 10px 0 0;
+                margin-bottom: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            #chat-container {
+                width: 100%;
+                max-width: 600px;
+                background: #fff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #chatbox {
+                flex: 1;
+                padding: 20px;
+                overflow-y: auto;
+                background: #f9f9f9;
+            }
+
+            .message {
+                margin: 10px 0;
+                display: flex;
+                align-items: center;
+            }
+
+            .message.bot {
+                justify-content: flex-start;
+            }
+
+            .message.user {
+                justify-content: flex-end;
+            }
+
+            .message-content {
+                max-width: 70%;
+                padding: 10px 15px;
+                border-radius: 10px;
+                font-size: 14px;
+                line-height: 1.5;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .message.bot .message-content {
+                background: #e0e0e0;
+                color: #333;
+                border-radius: 10px 10px 10px 0;
+            }
+
+            .message.user .message-content {
+                background: #0078d7;
+                color: #fff;
+                border-radius: 10px 10px 0 10px;
+            }
+
+            #input-container {
+                display: flex;
+                padding: 10px;
+                background: #fff;
+                border-top: 1px solid #ddd;
+            }
+
+            #message {
+                flex: 1;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 14px;
+                outline: none;
+            }
+
+            #send {
+                background: #0078d7;
+                border: none;
+                color: white;
+                padding: 10px 15px;
+                margin-left: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+
+            #send:hover {
+                background: #005bb5;
+            }
+        </style>
+        <script>
+            async function sendMessage() {
+                const messageInput = document.getElementById("message");
+                const chatbox = document.getElementById("chatbox");
+                const userMessage = messageInput.value.trim();
+
+                if (!userMessage) return;
+
+                appendMessage("user", userMessage);
+                messageInput.value = "";
+
+                appendMessage("bot", "Bot is typing...");
+                const botTypingElement = chatbox.lastChild;
+
+                try {
+                    const response = await fetch("/chat", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ message: userMessage })
+                    });
+                    const data = await response.json();
+                    botTypingElement.remove();
+                    appendMessage("bot", data.response);
+                } catch (error) {
+                    console.error("Error fetching bot response:", error);
+                    botTypingElement.remove();
+                    appendMessage("bot", "Sorry, something went wrong. Please try again later.");
+                }
+            }
+
+            function appendMessage(sender, text) {
+                const chatbox = document.getElementById("chatbox");
+                const messageElement = document.createElement("div");
+                messageElement.className = "message " + sender;
+                messageElement.innerHTML = '<div class="message-content">' + text + '</div>';
+                chatbox.appendChild(messageElement);
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="contact-info">
+            <h3>📞 Contact Us</h3>
+            <p>Phone: +91-8828076093</p>
+            <p>Email: ycusgroup@gmail.com</p>
         </div>
-    </div>
-</body>
-</html>
-"""
+        <div id="chat-container">
+            <div id="chatbox"></div>
+            <div id="input-container">
+                <input type="text" id="message" placeholder="Type your message here..." onkeypress="if(event.key === 'Enter') sendMessage()" />
+                <button id="send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
 
 
 if __name__ == '__main__':
